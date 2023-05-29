@@ -18,6 +18,7 @@ import java.util.Set;
 public class StudentController {
     @Autowired
     private StudentRepository studentRepository;
+    @Autowired
     private SearchByFormService searchByFormService;
     @GetMapping(value = "/getStudent/{id}")
     public ResponseEntity<?> getStudentById(@PathVariable Long id){
@@ -35,9 +36,9 @@ public class StudentController {
             return ResponseEntity.ok(studentRepository.save(student));
     }
     @GetMapping(value = "/search")
-    public ResponseEntity<?> searchByForm(@RequestParam(value = "id",required = false,defaultValue = "100") Long id,
-                                          @RequestParam(value = "name_student",required = false,defaultValue = "name") String name_student,
-                                          @RequestParam(value = "experience",required = false,defaultValue = "100") Long experience
+    public ResponseEntity<?> searchByForm(@RequestParam(value = "id",required = false) Long id,
+                                          @RequestParam(value = "name_student",required = false) String name_student,
+                                          @RequestParam(value = "experience",required = false) Long experience
                                           ){
         List<Student> students = searchByFormService.searchByForm(id,name_student,experience);
             return ResponseEntity.ok(students);
